@@ -1,3 +1,6 @@
+// link up the template todo.js file
+import { Todo } from "./classes/todo.js";
+
 // fine html element
 const todoForm = document.querySelector(".todo-form");
 const todoInput = document.querySelector("#inputTodo");
@@ -20,15 +23,15 @@ const showMessage = (text, status) => {
 
 
 // createTodo function define (ES6 javascript format)
-const createTodo = (todoId, todoValue) => {
+const createTodo = (newTodo) => { //receive the now object newTodo
     const todoElement = document.createElement("li");
-    todoElement.id = todoId;
+    todoElement.id = newTodo.todoId;//path of new object location then identify the todoId
     todoElement.classList.add("li-style");// list design
     todoElement.innerHTML =
         `
-     <span>${todoValue}</span>
+     <span>${newTodo.todoValue}</span>
      <span><button class="btn" id="deleteButton"><i class="fa fa-trash"></i></button></span>
-    `;
+    `;//path of new object location then identify the todoId
 
     todoLists.appendChild(todoElement);
 
@@ -77,8 +80,11 @@ const addTodo = (event) => {
     // unique id generation funcion
     const todoId = Date.now().toString();
 
-    // createTodo functon call
-    createTodo(todoId, todoValue);
+    // this is use the template class todo.js file
+    const newTodo = new Todo(todoId, todoValue);
+
+    // pass the object of new classes file todo.js
+    createTodo(newTodo);
 
     // showmessage function call
     showMessage("todo is added", "success");
@@ -87,7 +93,7 @@ const addTodo = (event) => {
     const todos = getTodosFromLocalStorage();
 
     // data push in array
-    todos.push({ todoId, todoValue });
+    todos.push(newTodo); //push data assign by new object
 
     //array store the localstorage
     localStorage.setItem("mytodos", JSON.stringify(todos));
@@ -100,7 +106,7 @@ const addTodo = (event) => {
 // loadTodos function define (ES6 javascript format)
 const loadTodos = () => {
     const todos = getTodosFromLocalStorage();
-    todos.map((todo) => createTodo(todo.todoId, todo.todoValue));//show one by one from localstorage
+    todos.map((todo) => createTodo(todo));//todo assign the createTodo function perameter
 }
 
 
