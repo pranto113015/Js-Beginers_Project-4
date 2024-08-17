@@ -1,8 +1,6 @@
 // fine html element
-const container = document.querySelector(".container");
 const todoForm = document.querySelector(".todo-form");
 const todoInput = document.querySelector("#inputTodo");
-const todoAddButton = document.querySelector("#addTodoButton");
 const todoLists = document.getElementById("lists");
 const messageElement = document.getElementById("message");
 
